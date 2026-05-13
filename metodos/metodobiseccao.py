@@ -44,7 +44,7 @@ else:
         x = (a + b) / 2
         fx = f(x)
 
-        print(f'xk = {x:.5f} | f(xk) = {fx:.5f}')
+        print(f'xn = {x:.5f} | f(xn) = {fx:.5f}')
 
         if absoluto(fx) < parada or contador == itMAX:
             break
@@ -57,6 +57,9 @@ else:
             fa = fx
     
         contador += 1
+
+print(f'O método da bisseção se limitou a dizer que a'
+      f' taxa de juros está no intervalo de [{a:.5f},{x:.5f}]')
     
 fim = time()
 

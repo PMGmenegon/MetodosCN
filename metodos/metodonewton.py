@@ -1,5 +1,4 @@
 from time import time
-from math import e
 
 inicio = time() # variável para calcular o tempo de execução
 
@@ -29,11 +28,13 @@ while contador < intMAX and absoluto(f(xn)) > parada:
     fx = f(xn)
     dfx = derivada(xn)
 
-    print(f'xn = {xn} | f(xn) = {fx} | f\'(xn) = {dfx}')
+    print(f'xn = {xn:.5f} | f(xn) = {fx:.5f} | f\'(xn) = {dfx:.5f}')
 
     xn -= fx / dfx
 
     contador += 1
+
+print(f'Taxa de juros = {xn:.5f}')
 
 fim = time()
 
