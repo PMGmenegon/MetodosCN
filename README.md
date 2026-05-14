@@ -19,10 +19,11 @@ A taxa de juros (`x`) é procurada no intervalo **[0,05 ; 0,15]**, com critério
 ```
 MetodosCN/
 ├── metodos/
-│   ├── metodobiseccao.py   # Método da Bisseção
-│   ├── metodonewton.py     # Método de Newton-Raphson
-│   └── metodosecante.py    # Método da Secante
-├── QuestaoImplementada.png # Enunciado da questão
+│   ├── metodobiseccao.py        # Método da Bisseção
+│   ├── metodonewton.py          # Método de Newton-Raphson
+│   └── metodosecante.py         # Método da Secante
+│   └── metodofalsaposicao.py    # Método da Falsa Posição
+├── QuestaoImplementada.png      # Enunciado da questão
 └── README.md
 ```
 
@@ -38,6 +39,9 @@ Usa a tangente à curva no ponto atual para convergir à raiz. A derivada `f'(x)
 
 ### 🔹 Secante (`metodosecante.py`)
 Similar ao Newton-Raphson, mas sem calcular derivadas — usa dois pontos anteriores para estimar a inclinação. Pontos iniciais: `x₀ = 0.05` e `x₁ = 0.15`.
+
+### 🔹 Falsa Posição (`metodofalsaposicao.py`)
+Similar à bisseção, mas em vez de usar o ponto médio do intervalo, traça uma reta entre os pontos (a,f(a)) e (b,f(b)). A interseção dessa reta com o eixo x é usada como nova aproximação da raiz.
 
 Todos os scripts exibem o tempo de execução ao final.
 
@@ -56,6 +60,7 @@ cd MetodosCN
 python metodos/metodobiseccao.py
 python metodos/metodonewton.py
 python metodos/metodosecante.py
+python metodos/metodofalsaposicao.py
 ```
 
 Nenhuma dependência externa é necessária — apenas a biblioteca padrão do Python (`math`, `time`).
