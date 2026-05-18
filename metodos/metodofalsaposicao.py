@@ -1,24 +1,24 @@
 from time import time
 
-inicio=time()
+inicio = time()
 
-#função que retorna um valor absoluto a ser comparado com a condição de parada
+# função que retorna um valor absoluto a ser comparado com a condição de parada
 def absoluto(x):
-     if x<0:
-          return x*-1
-     else:
-          return x
+    if x < 0:
+        return -x
+    else:
+        return x
 
-#função dada no problema usada para calcular a raiz
+# função dada no problema usada para calcular a raiz
 def f(x):
     return (20000 * ((x * ((1 + x)**6)) / (((1 + x)**6) - 1))) - 4000
     
 
-a=0.05
-b=0.15
+a = 0.05
+b = 0.15
 
-fa=f(a)
-fb=f(b)
+fa = f(a)
+fb = f(b)
 
 parada = 0.05
 contador = 1
@@ -33,13 +33,17 @@ if fa * fb > 0:
     print('Erro!')
 
 else:
+
     # um while True é feito, mas dentro dele existe a condição
     # de parada com um break, se o valor absoluto de f(x) for menor
     # que a parada definida como 0.05, o loop se encerra
     while True:
-            x=((a*fb)-(b*fa))/(fb-fa)
-            fx=f(x)
+            x = ((a*fb)-(b*fa)) / (fb-fa)
+
+            fx = f(x)
+
             print(f'xn = {x:.5f} | f(xn) = {fx:.5f}')
+
             if absoluto(fx) < parada or contador == itMAX:
                 break
             if fa * fx < 0:
@@ -48,6 +52,7 @@ else:
             elif fb * fx < 0:
                 a = x
                 fa = fx
+
             contador += 1
     
 print(f'O método da Falsa Posição se limitou a dizer que a'
