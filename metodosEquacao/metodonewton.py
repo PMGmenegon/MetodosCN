@@ -34,7 +34,8 @@ while contador < intMAX and absoluto(f(xn)) > parada:
 
     contador += 1
 
-print(f'Taxa de juros = {xn:.5f}')
+
+print(f'Taxa de juros = {xn:.5f} | f(xn) = {f(xn):.5f}')
 
 fim = time()
 

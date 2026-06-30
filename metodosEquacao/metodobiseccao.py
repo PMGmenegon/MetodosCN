@@ -1,5 +1,4 @@
 from time import time
-from math import log10
 
 inicio = time() # variável para calcular o tempo de execução
 
