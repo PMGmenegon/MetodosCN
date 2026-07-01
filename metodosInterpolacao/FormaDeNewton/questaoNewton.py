@@ -1,24 +1,30 @@
-from newton import diferencas_divididas, interpolacao_newton
+from newton import diferencas_divididas, interpolacao_newton, polinomio_simbolico_newton
 
-# Dados completos da tabela
-tempo_completo = [1, 3, 5, 7, 20]
-vel_completo = [800, 2310, 3090, 3940, 8000]
+# Dados da tabela
+anos = [1940, 1950, 1960, 1970, 1980]
+populacao = [132.165, 151.326, 179.323, 203.302, 226.542]
 
-# a) Polinômio de grau 3 -> usar 4 pontos (os mais próximos de t=10)
-# t=10 está entre 7 e 20, então os 4 pontos mais próximos são: 3, 5, 7, 20
+# Tabela de diferenças divididas
+coeficientes = diferencas_divididas(anos, populacao)
+print("=== Tabela de diferenças divididas ===")
+for i, c in enumerate(coeficientes):
+    print(f"  f[x0..x{i}] = {c}")
 
-t_estimar = 10
-coeficientes = diferencas_divididas(tempo_completo, vel_completo)
-resultado_grau3 = interpolacao_newton(tempo_completo, vel_completo, t_estimar)
+# a) Polinômio de grau 4 (5 pontos) -> estimar 1965
+resultado_1965 = interpolacao_newton(anos, populacao, 1965)
+expr = polinomio_simbolico_newton(anos, populacao)
+print(f"\na) Estimativa para 1965")
+print(f"Polinômio interpolador: P(x) = {expr}")
+print(f"População estimada em 1965: {resultado_1965:.3f} milhões")
 
-print("a) Polinômio de grau 3 (4 pontos: 3, 5, 7, 20)")
-print(f"Coeficientes (diferenças divididas): {coeficientes}")
-print(f"Velocidade estimada em t={t_estimar}s: {resultado_grau3:.4f} cm/s")
+# b) Precisão: comparar com o valor real de 1930 (extrapolação)
+valor_real_1930 = 123.203
+resultado_1930 = interpolacao_newton(anos, populacao, 1930)
+erro_abs = abs(resultado_1930 - valor_real_1930)
+erro_rel = erro_abs / valor_real_1930 * 100
 
-# b) Erro: comparar com o polinômio de grau 4 (usando todos os 5 pontos)
-resultado_grau4 = interpolacao_newton(tempo_completo, vel_completo, t_estimar)
-erro_estimado = abs(resultado_grau4 - resultado_grau3)
-
-print("\nb) Estimativa do erro")
-print(f"Velocidade com polinômio de grau 4 (todos os 5 pontos): {resultado_grau4:.4f} cm/s")
-print(f"Erro estimado |grau4 - grau3|: {erro_estimado:.4f} cm/s")
+print(f"\nb) Precisão para 1930")
+print(f"Valor calculado para 1930: {resultado_1930:.3f} milhões")
+print(f"Valor real para 1930: {valor_real_1930} milhões")
+print(f"Erro absoluto: {erro_abs:.3f} milhões")
+print(f"Erro relativo: {erro_rel:.2f}%")
