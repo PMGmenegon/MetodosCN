@@ -1,25 +1,27 @@
 from lagrange import interpolacao_lagrange, polinomio_simbolico_lagrange
 
-# Dados da tabela
-anos = [1940, 1950, 1960, 1970, 1980]
-populacao = [132.165, 151.326, 179.323, 203.302, 226.542]
+# Dados completos da tabela
+tempo_completo = [1, 3, 5, 7, 20]
+vel_completo   = [800, 2310, 3090, 3940, 8000]
 
-# a) Estimar a população em 1965 com polinômio de grau 4 (5 pontos -> grau 4)
-resultado_1965 = interpolacao_lagrange(anos, populacao, 1965)
-print("a) Estimativa para 1965")
-print(f"População estimada em 1965: {resultado_1965:.3f} milhões")
+# a) Grau 3 -> usar 4 pontos mais próximos de t=10
+# t=10 está entre 7 e 20, então descartamos t=1 (mais distante)
+tempo = [3, 5, 7, 20]
+vel   = [2310, 3090, 3940, 8000]
 
-expr = polinomio_simbolico_lagrange(anos, populacao)
-print(f"Polinômio interpolador: P(x) = {expr}\n")
+t_estimar = 10
+resultado_grau3 = interpolacao_lagrange(tempo, vel, t_estimar)
+expr = polinomio_simbolico_lagrange(tempo, vel)
 
-# b) Precisão: comparar com o valor real de 1930 (extrapolação)
-valor_real_1930 = 123.203
-resultado_1930 = interpolacao_lagrange(anos, populacao, 1930)
-erro_abs = abs(resultado_1930 - valor_real_1930)
-erro_rel = erro_abs / valor_real_1930 * 100 
+print("a) Polinômio de grau 3 (pontos: 3, 5, 7, 20)")
+print(f"Polinômio interpolador: P(t) = {expr}")
+print(f"Velocidade estimada em t={t_estimar}s: {resultado_grau3:.4f} cm/s")
 
-print("b) Precisão para 1930")
-print(f"Valor calculado para 1930: {resultado_1930:.3f} milhões")
-print(f"Valor real para 1930:      {valor_real_1930} milhões")
-print(f"Erro absoluto: {erro_abs:.3f} milhões")
-print(f"Erro relativo: {erro_rel:.2f}%")
+# b) Estimativa do erro: comparar com grau 4 (todos os 5 pontos)
+resultado_grau4 = interpolacao_lagrange(tempo_completo, vel_completo, t_estimar)
+erro = abs(resultado_grau4 - resultado_grau3)
+
+print("\nb) Estimativa do erro")
+print(f"Velocidade com grau 4 (todos os 5 pontos): {resultado_grau4:.4f} cm/s")
+print(f"Erro estimado |grau4 - grau3|: {erro:.4f} cm/s")
+print(f"Erro relativo: {erro/resultado_grau4*100:.2f}%")
